@@ -2,34 +2,42 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 type menuProps = {
-    isMenuOpen: boolean;
+  isMenuOpen: boolean;
 };
 
 export const Header = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
-    return (
-        <StyledHeaderBody>
-            <StyledHeader>
-                <Menu isMenuOpen={isMenuOpen}>
-                    <ul>
-                        <li>Home</li>
-                        <li>About</li>
-                        <li>Contact</li>
-                    </ul>
-                </Menu>
-                <Burger onClick={toggleMenu}>
-                    <Line></Line>
-                    <Line></Line>
-                    <Line></Line>
-                </Burger>
-            </StyledHeader>
-        </StyledHeaderBody>
-    );
+  return (
+    <StyledHeaderBody>
+      <StyledHeader>
+        <Menu isMenuOpen={isMenuOpen}>
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </Menu>
+
+        <MenuDesc isMenuOpen={isMenuOpen}>
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+            <li>Contact</li>
+          </ul>
+        </MenuDesc>
+
+        <Burger onClick={toggleMenu} isMenuOpen={isMenuOpen}>
+          <Line></Line>
+        </Burger>
+      </StyledHeader>
+    </StyledHeaderBody>
+  );
 };
 
 const StyledHeaderBody = styled.div`
@@ -41,18 +49,29 @@ const StyledHeaderBody = styled.div`
 
 const StyledHeader = styled.header`
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
   height: 100%;
-  padding: 20px;
-
 `;
 
 const Menu = styled.nav<menuProps>`
-  display: ${({ isMenuOpen }) => (isMenuOpen ? "flex" : "none")};
+  display: ${({ isMenuOpen }) => (isMenuOpen ? "flex" : "flex")};
   align-items: center;
+  justify-content: center;
   margin: 0 auto;
   z-index: 99;
+  background-color: #169070;
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: ${({ isMenuOpen }) => (isMenuOpen ? 1 : 0)};
+  transform: translateY(${({ isMenuOpen }) => (isMenuOpen ? "0" : "-100%")});
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
   ul {
     list-style-type: none;
 
@@ -64,7 +83,36 @@ const Menu = styled.nav<menuProps>`
   }
 `;
 
-const Burger = styled.div`
+const MenuDesc = styled.nav<menuProps>`
+  display: ${({ isMenuOpen }) => (isMenuOpen ? "flex" : "flex")};
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  z-index: 1;
+  background-color: #8da818;
+  width: 100%;
+  height: ${({ isMenuOpen }) => (isMenuOpen ? "0" : "100px")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: ${({ isMenuOpen }) => (isMenuOpen ? 0 : 1)};
+  transition: all 0.3s ease-in-out, height 0.3s ease;
+
+  ul {
+    list-style-type: none;
+    display: flex;
+
+    li {
+      color: #f0e2e2;
+      font-size: 1.5rem;
+      padding: 20px;
+    }
+  }
+`;
+
+const Burger = styled.div<{ isMenuOpen: boolean }>`
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -72,6 +120,30 @@ const Burger = styled.div`
   top: 40px;
   right: 40px;
   z-index: 100;
+  transition: transform 0.3s ease-in-out;
+  transform: ${({ isMenuOpen }) =>
+    isMenuOpen ? "rotate(90deg)" : "rotate(0)"
+  };
+
+  &:before,
+  &:after {
+    content: "";
+    width: 30px;
+    height: 3px;
+    background-color: #eeffee;
+    margin-bottom: 6px;
+    transition: transform 0.3s ease;
+  }
+
+  &:before {
+    transform: ${({ isMenuOpen }) =>
+    isMenuOpen ? "rotate(-90deg) translate(-6px, 0)" : "rotate(0) translate(0, -6px)"};
+  }
+
+  &:after {
+    transform: ${({ isMenuOpen }) =>
+    isMenuOpen ? "rotate(90deg) translate(-6px, 0)" : "rotate(0) translate(0, 6px)"};
+  }
 `;
 
 const Line = styled.div`
