@@ -79,6 +79,7 @@ const Menu = styled.nav<menuProps>`
       color: #f0e2e2;
       font-size: 2rem;
       padding: 20px;
+      cursor: pointer;
     }
   }
 `;
@@ -108,6 +109,7 @@ const MenuDesc = styled.nav<menuProps>`
       color: #f0e2e2;
       font-size: 1.5rem;
       padding: 20px;
+      cursor: pointer;
     }
   }
 `;
