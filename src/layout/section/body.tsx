@@ -1,15 +1,18 @@
 import styled from "styled-components";
+import { HeroSection } from "./HeroSection";
+import { AboutMe } from "./AboutMe";
+import { Projects } from "./Projects";
+import { Skills } from "./Skills";
+import { Contacts } from "./Contacts";
 
 export const Body = () => {
     return (
         <StyledBody>
-            <ul>
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-            </ul>
+            <HeroSection/>
+            <AboutMe/>
+            <Projects/>
+            <Skills/>
+            <Contacts/>
         </StyledBody>
     )
 }
@@ -17,6 +20,6 @@ export const Body = () => {
 const StyledBody = styled.section`
     width: 100%;
     height: 100vh;
-    background-color: #1a3e5d;
+    background-color: #3d3c3c;
     z-index: 1;
 `
